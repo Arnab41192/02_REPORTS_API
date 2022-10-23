@@ -10,5 +10,4 @@ public class SearchRequest {
    private String planStatus;
    private LocalDate planStartDate;
    private LocalDate planEndDate;
-   
 }

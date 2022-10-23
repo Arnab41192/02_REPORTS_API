@@ -32,6 +32,9 @@ public class EligibilityDetails {
 	
 	private LocalDate planStartDate;
 	
+
+	private LocalDate planEndDate;
+	
 	private LocalDate createDate;
 	
 	private LocalDate updateDate;
