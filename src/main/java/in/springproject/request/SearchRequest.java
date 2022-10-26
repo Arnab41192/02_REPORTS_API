@@ -10,4 +10,7 @@ public class SearchRequest {
    private String planStatus;
    private LocalDate planStartDate;
    private LocalDate planEndDate;
+   private Character gender;
+   private Long ssn;
+	
 }

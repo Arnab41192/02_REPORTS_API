@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -70,6 +71,7 @@ public class ReportServiceImpl implements ReportService {
 			response.add(sr);
 		}
 		
+		
 		return response;
 	}
 
@@ -98,20 +100,37 @@ public class ReportServiceImpl implements ReportService {
 				
 				if(request.getPlanName()!=null)
 				{
-					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("planName"), request.getPlanName())));
+					
+//					//EQUALS
+					predicates.add(criteriaBuilder.and(criteriaBuilder.
+							equal(root.get("planName"), request.getPlanName())));
+					
+//					//LIKE
+//					predicates.add(criteriaBuilder.and(criteriaBuilder.
+//							like(root.get("planName"), "%"+request.getPlanName()+"%")));
+					
+					
+//					predicates.add(criteriaBuilder.and(criteriaBuilder.
+//							like(root.get("planName"), request.getPlanName())));
+		
+					//IN
+//					if(request.getPlanName().getClass().isArray())
+//					{
+//						predicates.add(criteriaBuilder.and(criteriaBuilder.
+//								in(root.get("planName").in(request.getPlanName()))));
+//					}
+				
+				}
+				//GREATER THAN , LESS THAN
+				if(request.getPlanStartDate()!=null)
+				{
+					predicates.add(criteriaBuilder.and(criteriaBuilder.
+							greaterThanOrEqualTo(root.get("planStartDate"),request.getPlanStartDate())));
 				}
 				
 				return criteriaBuilder.and(predicates.toArray (new Predicate[predicates.size()]));
 			
-//				for(EligibilityDetails eligibilityDetails : entities)
-//				{
-//					SearchResponse sr = new SearchResponse();
-//					BeanUtils.copyProperties(eligibilityDetails, sr);
-//					response.add(sr);
-//				}
 //				
-//				return response;
-			
 			}
         });
     }
