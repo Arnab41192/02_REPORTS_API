@@ -8,7 +8,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -134,6 +138,44 @@ public class ReportServiceImpl implements ReportService {
 			}
         });
     }
+
+
+
+	@Override
+	public void generateExcel(HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		List<EligibilityDetails> entities = eligRepo.findAll();
+		
+		HSSFWorkbook workBook =  new HSSFWorkbook();
+		HSSFSheet sheet =  workBook.createSheet();
+		HSSFRow headerRow = sheet.createRow(0);
+		
+		headerRow.createCell(0).setCellValue("S.No");
+		headerRow.createCell(1).setCellValue("Name");
+		headerRow.createCell(2).setCellValue("Mobile");
+		headerRow.createCell(3).setCellValue("Gender");
+		headerRow.createCell(4).setCellValue("SSN");
+		
+		int i=1;
+		
+		entities.forEach(entity -> {
+			HSSFRow dataRow = sheet.createRow(i);
+			dataRow.createCell(0).setCellValue(entity.getName());
+			dataRow.createCell(1).setCellValue(entity.getName());
+			dataRow.createCell(2).setCellValue(entity.getName());
+			dataRow.createCell(3).setCellValue(entity.getName());
+		});
+		
+	}
+
+
+
+	@Override
+	public void generatePdf(HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+		
+	}
 	
 	
 	

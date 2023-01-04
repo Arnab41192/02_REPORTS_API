@@ -2,6 +2,8 @@ package in.springproject.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Service;
 
 import in.springproject.entitu.EligibilityDetails;
@@ -14,4 +16,8 @@ public interface ReportService{
 	public  List<SearchResponse> search (SearchRequest req);
 	
 	public List<EligibilityDetails> findByCriteria(SearchRequest request);
+	
+	public void generateExcel(HttpServletResponse response);
+	
+	public void generatePdf(HttpServletResponse response);
 }
