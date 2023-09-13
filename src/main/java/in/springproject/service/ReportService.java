@@ -1,5 +1,6 @@
 package in.springproject.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,7 @@ public interface ReportService{
 	
 	public List<EligibilityDetails> findByCriteria(SearchRequest request);
 	
-	public void generateExcel(HttpServletResponse response);
+	public void generateExcel(HttpServletResponse response) throws IOException;
 	
-	public void generatePdf(HttpServletResponse response);
+	public void generatePdf(HttpServletResponse response) throws Exception;
 }

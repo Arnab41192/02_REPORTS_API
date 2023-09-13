@@ -1,6 +1,10 @@
 package in.springproject.controller;
 
+import java.io.IOException;
+import java.security.Provider.Service;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,4 +41,35 @@ public class ReportRestController {
 		List<EligibilityDetails> response = reportService.findByCriteria(searchRequest);
 		return  new ResponseEntity<>(response,HttpStatus.OK);
 	}
+	
+	@GetMapping("/excel")
+	public void excelReport(HttpServletResponse response) throws IOException
+	{
+		response.setContentType("application/octet-stream");
+		
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment;filename=data.xlsx";
+		
+		response.setHeader(headerKey, headerValue);
+		
+	    reportService.generateExcel(response);
+		
+	}
+	
+	@GetMapping("/pdf")
+	public void pdfReport(HttpServletResponse response) throws Exception
+	{
+		response.setContentType("application/pdf");
+		
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment;filename=data.pdf";
+		
+		response.setHeader(headerKey, headerValue);
+		
+	    reportService.generatePdf(response);;
+		
+	}
+	
+	
+	
 }
